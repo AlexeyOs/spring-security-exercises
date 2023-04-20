@@ -15,9 +15,9 @@ values (2001, 10.00, 1001),
 
 -- Users
 insert into user(id, login, password)
-values (3001, 'user1', 'password'),
-       (3002, 'user2', 'password'),
-       (3003, 'admin', 'password');
+values (3001, 'user1', '$2a$10$pLQPXqv9cQNE.gqamko2Fee8DpMa20dt4.lQgR.rRmaNVu9L8lRxa'),
+       (3002, 'user2', '$2a$10$pLQPXqv9cQNE.gqamko2Fee8DpMa20dt4.lQgR.rRmaNVu9L8lRxa'),
+       (3003, 'admin', '$2a$10$pLQPXqv9cQNE.gqamko2Fee8DpMa20dt4.lQgR.rRmaNVu9L8lRxa');
 
 -- User roles
 insert into user_roles(user_id, roles)
