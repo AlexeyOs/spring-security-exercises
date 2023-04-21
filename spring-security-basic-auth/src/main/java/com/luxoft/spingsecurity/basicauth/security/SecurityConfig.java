@@ -42,12 +42,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/login", "/deny.html", "/logout").permitAll()
                 .antMatchers("/company/**", "/user/**").authenticated()
                 .antMatchers("/info").permitAll()
                 .antMatchers("/**").denyAll()
                 .and()
                 .httpBasic()
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .failureUrl("/deny.html")
+                .defaultSuccessUrl("/company", true);
     }
 }
