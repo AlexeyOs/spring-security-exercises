@@ -36,4 +36,9 @@ public class UserController {
     public UserDto update(@RequestBody UserDto userDto) {
         return userService.update(userDto);
     }
+
+    @GetMapping("/user/whoami")
+    public UserDto whoAmI() {
+        return userService.getCurrentUser();
+    }
 }

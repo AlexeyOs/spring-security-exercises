@@ -1,6 +1,8 @@
 package com.luxoft.spingsecurity.basicauth.security;
 
+import com.luxoft.spingsecurity.basicauth.model.User;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Collections;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -44,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login", "/deny.html", "/logout").permitAll()
+                .antMatchers("/user/whoami").permitAll()
                 .antMatchers("/company/**", "/user/**").authenticated()
                 .antMatchers("/info").hasAuthority("ROLE_ANON")
                 .antMatchers("/**").denyAll()
@@ -62,6 +67,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anonymous()
                 // ROLE_ANONYMOUS by default
                 .authorities("ROLE_ANON")
-        ;
+                .principal(new UserDetailsAdapter(anonymous()));
+    }
+
+    private static User anonymous() {
+        val user = new User();
+        user.setId(-1);
+        user.setLogin("anonymous");
+        user.setPassword("");
+        user.setRoles(Collections.singletonList("ROLE_ANON"));
+        return user;
     }
 }

@@ -3,6 +3,8 @@ package com.luxoft.spingsecurity.basicauth.service;
 import com.luxoft.spingsecurity.basicauth.dto.UserDto;
 import com.luxoft.spingsecurity.basicauth.dto.converters.UserDtoConverter;
 import com.luxoft.spingsecurity.basicauth.repository.UserRepository;
+import com.luxoft.spingsecurity.basicauth.security.CurrentUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,14 +13,15 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
+    private final CurrentUserService currentUserService;
     private final UserRepository userRepository;
     private final UserDtoConverter userDtoConverter;
 
-    public UserService(UserRepository userRepository, UserDtoConverter userDtoConverter) {
-        this.userRepository = userRepository;
-        this.userDtoConverter = userDtoConverter;
+    public UserDto getCurrentUser() {
+        return userDtoConverter.toDto(currentUserService.getCurrentUser());
     }
 
     @Transactional(readOnly = true)

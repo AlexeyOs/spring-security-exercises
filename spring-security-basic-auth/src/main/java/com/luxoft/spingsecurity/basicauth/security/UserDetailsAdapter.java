@@ -1,6 +1,7 @@
 package com.luxoft.spingsecurity.basicauth.security;
 
 import com.luxoft.spingsecurity.basicauth.model.User;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class UserDetailsAdapter implements UserDetails {
 
+    @Getter
     private final User user;
 
 
