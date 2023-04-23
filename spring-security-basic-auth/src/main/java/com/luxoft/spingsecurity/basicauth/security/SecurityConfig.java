@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/deny.html", "/logout").permitAll()
                 .antMatchers("/company/**", "/user/**").authenticated()
-                .antMatchers("/info").permitAll()
+                .antMatchers("/info").hasAuthority("ROLE_ANON")
                 .antMatchers("/**").denyAll()
                 .and()
                 .httpBasic()
@@ -58,6 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/company", true)
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));;
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and()
+                .anonymous()
+                // ROLE_ANONYMOUS by default
+                .authorities("ROLE_ANON")
+        ;
     }
 }
