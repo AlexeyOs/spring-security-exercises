@@ -67,7 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anonymous()
                 // ROLE_ANONYMOUS by default
                 .authorities("ROLE_ANON")
-                .principal(new UserDetailsAdapter(anonymous()));
+                .principal(new UserDetailsAdapter(anonymous()))
+                .and()
+                .rememberMe()
+                .alwaysRemember(true)
+                .key("my-secret");
     }
 
     private static User anonymous() {
