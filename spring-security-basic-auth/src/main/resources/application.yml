@@ -1,5 +1,19 @@
-server.port: 8090
-
 spring:
   datasource:
     url: "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+
+server:
+  port: 8090
+  ssl:
+    enabled: true
+    # keystore format
+    key-store-type: PKCS12
+    key-store: classpath:keystore/server/keystore.p12
+    # keystore password
+    key-store-password: changeit
+    protocol: TLS
+    enabled-protocols: TLSv1.2
+    # configure truststore (approved certificates)
+    client-auth: need
+    trust-store: classpath:keystore/server/truststore.p12
+    trust-store-password: changeit
