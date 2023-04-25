@@ -17,14 +17,16 @@ values (2001, 10.00, 1001),
 insert into user(id, login, password)
 values (3001, 'user1', 'password'),
        (3002, 'user2', 'password'),
-       (3003, 'admin', 'password');
+       (3003, 'admin', 'password'),
+       (3004, 'alexey', 'password');
 
 -- User roles
 insert into user_roles(user_id, roles)
 values (3001, 'user'),
        (3002, 'user'),
        (3002, 'manager'),
-       (3003, 'admin');
+       (3003, 'admin'),
+       (3004, 'alexey');
 
 -- User-Company
 insert into user_company(user_id, companies_id)
@@ -33,4 +35,5 @@ values (3001, 1001),
        (3002, 1003),
        (3003, 1001),
        (3003, 1002),
-       (3003, 1003);
+       (3003, 1003),
+       (3004, 1001);
